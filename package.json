@@ -1,0 +1,22 @@
+{
+  "type": "module",
+  "private": true,
+  "workspaces": [
+    "server",
+    "client",
+    "e2e"
+  ],
+  "scripts": {
+    "build:client": "yarn workspace character-ranker-client build",
+    "dev": "yarn workspace character-ranker-server dev",
+    "dev:debug": "yarn workspace character-ranker-server dev:debug",
+    "heroku-postbuild": "yarn workspace character-ranker-client build",
+    "start": "yarn workspace character-ranker-server start",
+    "dev:cypress": "yarn workspace character-ranker-server dev:e2e",
+    "e2e:open": "yarn workspace character-ranker-e2e e2e:open",
+    "e2e:run": "yarn workspace character-ranker-e2e e2e:run"
+  },
+  "engines": {
+    "node": "^14.15"
+  }
+}
