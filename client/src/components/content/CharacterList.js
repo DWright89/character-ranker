@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react"
-
+import React, { useState,useEffect } from "react"
+import {BrowserRouter, Link, Switch} from "react-router-dom"
 import CharacterTile from "./CharacterTile"
 
 const CharacterList = (props) => {
@@ -22,9 +22,9 @@ const CharacterList = (props) => {
 
   const charactersArray = characters.map((character) => {
     return (
-      <CharacterTile
+      <CharacterTile 
         key={character.id}
-        character={character} 
+        character={character}
       />
     )
   })
