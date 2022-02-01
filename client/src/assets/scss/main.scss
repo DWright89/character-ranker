@@ -1,6 +1,9 @@
 @import "./foundation/settings";
 @import "~foundation-sites/scss/foundation";
 @include foundation-everything;
+@import "../../../public/stylesheets/index.css";
+@import url("https://use.typekit.net/qtt8vii.css");
+
 // place global css here
 *,
 *::before,

@@ -3,9 +3,9 @@ import React from "react"
 
 const CharacterTile = props => {
 
-    return <div>
-        <h1>  {props.character.name}</h1>
-    </div>
+    return <li>
+        {props.character.name}
+        </li>
 }
 
 export default CharacterTile
