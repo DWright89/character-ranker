@@ -5,6 +5,21 @@
 @import url("https://use.typekit.net/qtt8vii.css");
 
 // place global css here
+
+$dark-gray: #545454;
+$light-gray: #A7A8A5;
+$blue: #406BB0;
+$green: #4FA99F;
+$yellow: #EBC539;
+$red: #CB2E2E;
+
+* {
+    background-color: $light-gray;
+    color: white;
+    font-family: Kallisto;
+}
+
+
 *,
 *::before,
 *::after {
