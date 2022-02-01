@@ -19,7 +19,6 @@ const CharacterShow = (props) =>{
             console.error("error in character show", error.Message)
         }
     }
-
    useEffect (()=>{
        getCharacter()
    }, [])

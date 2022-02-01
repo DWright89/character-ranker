@@ -33,10 +33,12 @@ const CharacterList = (props) => {
     }, [])
 
     return (
-        <div>
-            {charactersArray}
-        </div>
-
+            <div className="index">
+                <h1 className="title">Character Ranker</h1>
+                <ol className="rankings">
+                {charactersArray}
+                </ol>
+            </div>
     )
 }
 

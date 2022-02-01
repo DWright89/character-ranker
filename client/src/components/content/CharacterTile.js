@@ -7,7 +7,7 @@ const CharacterTile = props => {
     return <div>
         <Link 
             to={`characters/${id}`}>
-         {props.character.name}
+                <li>{props.character.name}</li>
         </Link>
     </div>
 }
