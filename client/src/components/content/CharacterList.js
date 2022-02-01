@@ -1,4 +1,5 @@
 import React, { useState,useEffect } from "react"
+import {BrowserRouter, Link, Switch} from "react-router-dom"
 import CharacterTile from "./CharacterTile"
 
 const CharacterList = (props) => {

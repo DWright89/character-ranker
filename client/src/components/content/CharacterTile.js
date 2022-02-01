@@ -1,16 +1,17 @@
-import { checkPropTypes } from "prop-types"
+
 import React from "react"
-
+import {Link} from "react-router-dom"
 const CharacterTile = props => {
-
+    const id = props.character.id
+    debugger
     return <div>
-        <h1>  {props.character.name}</h1>
+        <Link 
+            to={`characters/${id}`}>
+         {props.character.name}
+        </Link>
     </div>
 }
 
 export default CharacterTile
 
-
-//Name: Link
-//game : OOT
 
