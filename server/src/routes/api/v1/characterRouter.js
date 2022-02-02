@@ -13,4 +13,13 @@ characterRouter.get("/", async (req,res) => {
   }
 })
 
+characterRouter.get("/:id", async (req,res) => {
+  try{
+    const character = await Character.query().findById(req.params.id)
+    return res.status(200).json({ character })
+  } catch(err) {
+    return res.status(500).json({ errors: err })
+  }
+})
+
 export default characterRouter

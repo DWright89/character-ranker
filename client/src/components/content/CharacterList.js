@@ -24,7 +24,7 @@ const CharacterList = (props) => {
     return (
       <CharacterTile
         key={character.id}
-        character={character} 
+        character={character}
       />
     )
   })

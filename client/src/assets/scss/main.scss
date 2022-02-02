@@ -1,24 +1,16 @@
 @import "./foundation/settings";
 @import "~foundation-sites/scss/foundation";
 @include foundation-everything;
-@import "../../../public/stylesheets/index.css";
 @import url("https://use.typekit.net/qtt8vii.css");
-
-// place global css here
-
-$dark-gray: #545454;
-$light-gray: #A7A8A5;
-$blue: #406BB0;
-$green: #4FA99F;
-$yellow: #EBC539;
-$red: #CB2E2E;
+@import "../../../public/stylesheets/colors.scss";
+@import "../../../public/stylesheets/index.scss";
+@import "../../../public/stylesheets/characterShow.scss";
 
 body {
-    background-color: $light-gray;
-    color: white;
-    font-family: Kallisto;
+  background-color: $light-gray;
+  color: white;
+  font-family: Kallisto;
 }
-
 
 *,
 *::before,
