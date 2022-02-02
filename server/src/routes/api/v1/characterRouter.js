@@ -9,7 +9,7 @@ characterRouter.get("/", async (req,res) => {
     const characters = await Character.query()
     return res.status(200).json({ characters })
   } catch(err) {
-    return res.status(500).json({ errors:err })
+    return res.status(500).json({ errors: err })
   }
 })
 
@@ -17,8 +17,8 @@ characterRouter.get("/:id", async (req,res) => {
   try{
     const character = await Character.query().findById(req.params.id)
     return res.status(200).json({ character })
-  } catch (err) {
-    return res.status(500).json({ errors:err })
+  } catch(err) {
+    return res.status(500).json({ errors: err })
   }
 })
 

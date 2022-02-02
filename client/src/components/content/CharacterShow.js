@@ -1,30 +1,29 @@
-import React, {useState, useEffect} from "react"
+import React, { useState, useEffect } from "react"
 
-const CharacterShow = (props) =>{
+const CharacterShow = (props) => {
   const [character, setCharacter] = useState({})
   
-  const getCharacter = async () =>{
+  const getCharacter = async () => {
     const characterId = props.match.params.id
     try {
       const response = await fetch(`/api/v1/characters/${characterId}`)
-      if (!response.ok){
+      if (!response.ok) {
         const errorMessage = `${response.status} (${response.statusText})`
         const error = new Error(errorMessage)
         throw(error)
       }
       const body = await response.json()
       setCharacter(body.character)
-      
-    }catch(error){
+    }catch(error) {
       console.error("error in character show", error.Message)
     }
   }
   
-   useEffect (()=>{
-     getCharacter()
-   }, [])
+  useEffect (()=> {
+    getCharacter()
+  }, [])
 
-  return(
+  return (
     <div>
       <h2 className='characterName'>
         {character.name}

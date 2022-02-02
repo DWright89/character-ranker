@@ -16,7 +16,7 @@ class CharacterSeeder {
         gameTitle: "Super Mario Odyssey",
         gameSeries: "Super Mario Bros",
         description: "Luigi's Brother",
-        pictureUrl: "https://static.wikia.nocookie.net/mario/images/3/3e/MPSS_Mario.png/revision/latest?cb=20211108165440"
+        pictureUrl: "https://i.imgur.com/1fXq1jU.png"
       },
       {
         name: "Link",
