@@ -1,4 +1,4 @@
-import { Character } from "../../../models/index.js"
+import { Character } from "../../models/index.js"
 
 class CharacterSeeder {
 

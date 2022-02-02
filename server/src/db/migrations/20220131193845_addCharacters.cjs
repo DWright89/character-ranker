@@ -9,8 +9,8 @@ exports.up = async (knex) => {
   return knex.schema.createTable("characters", (table) => {
     table.bigIncrements("id")
     table.string("name").notNullable()
-    table.string("gameTitle")
-    table.string("gameSeries").notNullable()
+    table.string("gameTitle").notNullable()
+    table.string("gameSeries")
     table.string("pictureUrl")
     table.string("description")
     table.timestamp("createdAt").notNullable().defaultTo(knex.fn.now())

@@ -1,9 +1,4 @@
-$dark-gray: #545454;
-$light-gray: #A7A8A5;
-$blue: #406BB0;
-$green: #4FA99F;
-$yellow: #EBC539;
-$red: #CB2E2E;
+@import "./colors.scss";
 
 .title {
   font-family: 'lores-12';

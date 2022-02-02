@@ -19,21 +19,30 @@ const CharacterShow = (props) =>{
       console.error("error in character show", error.Message)
     }
   }
+  
    useEffect (()=>{
      getCharacter()
    }, [])
 
   return(
     <div>
-      <h2>{character.name}</h2>
-      <h4>Appearing in: {character.gameTitle} </h4>
-      <h3>From the bestselling series {character.gameSeries} </h3>
-      <p>Description: {character.description}</p>
+      <h2 className='characterName'>
+        {character.name}
+      </h2>
       <img 
         src={character.pictureUrl}
         width="400" 
         height="500" 
       />
+      <h4 className='gameTitle'>
+        Appearing in: {character.gameTitle}
+      </h4>
+      <h3 className='gameSeries'>
+        From the bestselling series {character.gameSeries}
+      </h3>
+      <p className='arguments'>
+        Description: {character.description}
+      </p>
     </div>
   )
 }
