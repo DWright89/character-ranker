@@ -8,14 +8,13 @@ class Character extends Model{
   static get jsonSchema(){
     return {
       type:"object",
-      required:["name", "gameTitle"],
+      required:["name", "gameSeries"],
       properties:{
         name: { type: "string" },
         gameTitle: { type: "string" },
         gameSeries: { type: "string" },
         pictureUrl: { type: "string" },
         description: { type: "string" }
-
       }
     }
   }
