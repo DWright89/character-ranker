@@ -9,6 +9,7 @@ import SignInForm from "./authentication/SignInForm";
 import TopBar from "./layout/TopBar";
 import CharacterList from "./content/CharacterList";
 import CharacterShow from "./content/CharacterShow.js"
+import NewCharacterForm from "./content/NewCharacterForm.js";
 
 const App = (props) => {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -35,6 +36,7 @@ const App = (props) => {
         <Route exact path="/users/new" component={RegistrationForm} />
         <Route exact path="/user-sessions/new" component={SignInForm} />
         <Route exact path="/characters" component = {CharacterList}/>
+        <Route exact path="/characters/new" component= {NewCharacterForm} />
         <Route exact path="/characters/:id" component={CharacterShow} />
       </Switch>
     </Router>
