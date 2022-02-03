@@ -28,7 +28,6 @@ characterRouter.post("/", async (req, res) => {
   const cleanForm = cleanUserInput(body);
   try {
     const newCharacter = await Character.query().insertAndFetch(cleanForm)
-    console.log(newCharacter)
     return res.status(201).json({ character: newCharacter });
   } catch (error) {
     if (error instanceof ValidationError) {
