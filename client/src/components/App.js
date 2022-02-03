@@ -13,7 +13,7 @@ import NewCharacterForm from "./content/NewCharacterForm.js";
 import AuthenticatedRoute from "./authentication/AuthenticatedRoute.js";
 
 const App = (props) => {
-  const [currentUser, setCurrentUser] = useState(undefined);
+  const [currentUser, setCurrentUser] = useState(null);
   const fetchCurrentUser = async () => {
     try {
       const user = await getCurrentUser()
