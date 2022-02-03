@@ -26,17 +26,16 @@ characterRouter.get("/:id", async (req,res) => {
 characterRouter.post("/", async (req, res) => {
   const { body } = req
   const cleanForm = cleanUserInput(body);
-  console.log(cleanForm)
   try {
-      const newCharacter = await Character.query().insertAndFetch(cleanForm)
-      console.log(newCharacter)
-      return res.status(201).json({ character: newCharacter });
+    const newCharacter = await Character.query().insertAndFetch(cleanForm)
+    console.log(newCharacter)
+    return res.status(201).json({ character: newCharacter });
   } catch (error) {
-      if (error instanceof ValidationError) {
-          return res.status(422).json({ errors: error.data })
-      }
-      console.error("Error in the character post router", error)
-      return res.status(500).json({ errors: error })
+    if (error instanceof ValidationError) {
+      return res.status(422).json({ errors: error.data })
+    }
+    console.error("Error in the character post router", error)
+    return res.status(500).json({ errors: error })
   }
 })
 
