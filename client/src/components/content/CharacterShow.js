@@ -5,25 +5,10 @@ import VoteButtons from "./VoteButtons.js"
 const CharacterShow = (props) => {
   const [character, setCharacter] = useState({})
   const [totalVotes, setTotalVotes] = useState()
-  const [userVote, setUserVote] = useState()
+  const [userVote, setUserVote] = useState(false)
+  const [clicked, setClicked] = useState(0)
   const params = useParams()
 
-  const countVotes = (votesArray) => {
-    let counter = 0
-    votesArray.forEach(vote => {
-      counter += vote.voteValue
-    })
-    setTotalVotes(counter)
-  }
-
-  const checkUserVote = (votesArray) => {
-    votesArray.forEach(vote => {
-      if (vote.userId === params.user.id) {
-        setUserVote(vote.voteValue)
-      }
-    })
-    debugger
-  }
 
   const getCharacter = async () => {
     const characterId = params.id
@@ -36,8 +21,8 @@ const CharacterShow = (props) => {
       }
       const body = await response.json()
       setCharacter(body.character)
-      countVotes(body.character.votes)
-      checkUserVote(body.character.votes)
+      setTotalVotes(body.character.votes[0].sum)
+      setUserVote(body.character.voted)
     }catch(error) {
       console.error("error in character show", error.Message)
     }
@@ -45,7 +30,9 @@ const CharacterShow = (props) => {
   
   useEffect (()=> {
     getCharacter()
-  }, [])
+  }, [clicked])
+
+ 
 
   const click = async (event) => {
     event.persist();
@@ -54,9 +41,11 @@ const CharacterShow = (props) => {
     const newVote ={
       characterId: params.id,
       userId: props.user.id,
-      voteValue : parseInt(event.currentTarget.value)
+      voteValue: parseInt(event.currentTarget.value),
+      votedAlready: userVote
     }
     console.log(newVote)
+   
     try{
       const response = await fetch("/api/v1/votes", {
         method: 'POST',
@@ -65,6 +54,7 @@ const CharacterShow = (props) => {
       	        }),
       	        body: JSON.stringify(newVote)
               })
+              setClicked((clicked+1))
             }catch(error){
       console.error("The button broke", error)
     }
