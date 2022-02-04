@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react"
+import { useParams } from "react-router-dom"
+import ReviewForm from "./ReviewForm"
 
 const CharacterShow = (props) => {
   const [character, setCharacter] = useState({})
+  const params = useParams()
   
   const getCharacter = async () => {
-    const characterId = props.match.params.id
+    const characterId = params.id
     try {
       const response = await fetch(`/api/v1/characters/${characterId}`)
       if (!response.ok) {
@@ -18,10 +21,18 @@ const CharacterShow = (props) => {
       console.error("error in character show", error.Message)
     }
   }
+
+  //if(user){
+  //show form }
   
   useEffect (()=> {
     getCharacter()
   }, [])
+
+  let reviewForm = <p>You must be signed in to leave a review</p>
+  if (props.user) {
+    reviewForm = <ReviewForm characterId={character.id} userId={props.user.id} />
+  }
 
   return (
     <div>
@@ -42,6 +53,7 @@ const CharacterShow = (props) => {
       <p className='arguments'>
         Description: {character.description}
       </p>
+      {reviewForm}
     </div>
   )
 }

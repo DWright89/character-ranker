@@ -1,6 +1,8 @@
 import express from "express"
-
+import { ValidationError } from "objection"
 import { Character } from "../../../models/index.js"
+import cleanUserInput from "../../../services/cleanUserInput.js"
+import characterReviewRouter from "./characterReviewRouter.js"
 
 const characterRouter = new express.Router()
 
@@ -12,6 +14,8 @@ characterRouter.get("/", async (req,res) => {
     return res.status(500).json({ errors: err })
   }
 })
+
+characterRouter.use("/:id/reviews", characterReviewRouter)
 
 characterRouter.get("/:id", async (req,res) => {
   try{
