@@ -1,0 +1,15 @@
+@import "./colors.scss";
+
+.submit {
+  font-weight: bold;
+  color: $white;
+  background-color: $blue;
+  border-color: $red;
+  border-width: 5px;
+  border-radius: 10px;
+}
+
+.input {
+  border: solid 5px;
+  border-radius: 10px;
+}
