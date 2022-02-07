@@ -2,6 +2,7 @@ import express from "express"
 
 import { Character } from "../../../models/index.js"
 import cleanUserInput from "../../../services/cleanUserInput.js"
+import characterReviewRouter from "./characterReviewRouter.js"
 
 const characterRouter = new express.Router()
 
@@ -23,6 +24,8 @@ characterRouter.get("/:id", async (req,res) => {
   }
 })
 
+characterRouter.use("/:id/reviews", characterReviewRouter) 
+
 characterRouter.post("/", async (req, res) => {
   const { body } = req
   const cleanForm = cleanUserInput(body);
@@ -37,5 +40,7 @@ characterRouter.post("/", async (req, res) => {
     return res.status(500).json({ errors: error })
   }
 })
+
+
 
 export default characterRouter

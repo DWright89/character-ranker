@@ -28,7 +28,6 @@ const App = (props) => {
   }, [])
 
   return (
-    
     <Router>
       <TopBar user={currentUser} />
       <div className="gridContainer">
@@ -39,19 +38,18 @@ const App = (props) => {
         <Route exact path="/users/new" component={RegistrationForm} />
         <Route exact path="/user-sessions/new" component={SignInForm} />
         <Route exact path="/characters" component={CharacterList} />
-
         <AuthenticatedRoute 
           exact={true} 
           path="/characters/new"
           component={NewCharacterForm}
           user={currentUser}
         />
-
-        <Route exact path="/characters/:id" component={CharacterShow} />
+        <Route exact path="/characters/:id">
+          <CharacterShow user={currentUser} />
+        </Route>
       </Switch>
       </div>
     </Router>
-    
   );
 };
 
