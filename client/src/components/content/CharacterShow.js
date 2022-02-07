@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
-
 import ReviewForm from "./ReviewForm"
-import ReviewList from "./ReviewList"
 
 const CharacterShow = (props) => {
   const params = useParams()
