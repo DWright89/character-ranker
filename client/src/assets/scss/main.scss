@@ -3,14 +3,53 @@
 @include foundation-everything;
 @import url("https://use.typekit.net/qtt8vii.css");
 @import "../../../public/stylesheets/colors.scss";
-@import "../../../public/stylesheets/index.scss";
 @import "../../../public/stylesheets/characterShow.scss";
 @import "../../../public/stylesheets/voteButtons.scss";
+@import "../../../public/stylesheets/newCharacterForm.scss";
 
 body {
   background-color: $light-gray;
   color: white;
+}
+
+h1,
+h2,
+h3,
+h4 {
   font-family: Kallisto;
+  font-weight: 800;
+}
+
+.title {
+  font-family: 'lores-12';
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.blue {
+  color: $blue;
+}
+
+.green {
+  color: $green;
+}
+
+.yellow {
+  color: $yellow;
+}
+
+.red {
+  color: $red;
+}
+
+.dark-gray {
+  color: $dark-gray;
+}
+
+.centered {
+  text-align: center;
 }
 
 *,

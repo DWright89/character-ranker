@@ -35,11 +35,17 @@ const CharacterList = (props) => {
   }, [])
 
   return (
-    <div className="index">
-      <h1 className="title">Character Ranker</h1>
-      <ol className="rankings">
-        {charactersArray}
-      </ol>
+    <div className="grid-x grid-margin-x">
+      <div className="cell small-2 medium-3"/>
+      <div className="cell small-8 medium-6">
+        <div className="index">
+          <h1 className="centered title">Character Ranker</h1>
+          <ol>
+            {charactersArray}
+          </ol>
+        </div>
+      <div className="cell small-2 medium-3"/>
+      </div>
     </div>
   )
 }
