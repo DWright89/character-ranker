@@ -5,7 +5,6 @@ import CharacterTile from "./CharacterTile"
 const CharacterList = (props) => {
   const [characters, setCharacters] = useState([])
 
-
   const getCharacters = async () => {
     try {
       const response = await fetch("/api/v1/characters")

@@ -1,6 +1,6 @@
 import express from "express"
 
-import characterVoteRouter from "./characterVoteRouter.js"
+import characterVotesRouter from "./characterVotesRouter.js"
 import { Character, Vote } from "../../../models/index.js"
 import cleanUserInput from "../../../services/cleanUserInput.js"
 
@@ -49,6 +49,6 @@ characterRouter.post("/", async (req, res) => {
   }
 })
 
-characterRouter.use('/:id/vote', characterVoteRouter)
+characterRouter.use('/:id/votes', characterVotesRouter)
 
 export default characterRouter

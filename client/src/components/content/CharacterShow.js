@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import VoteButtons from "./VoteButtons.js"
 
 const CharacterShow = (props) => {
@@ -27,20 +27,17 @@ const CharacterShow = (props) => {
     }
   }
 
- 
-
   useEffect(() => {
     getCharacter()
   }, [clicked])
 
   const addVote = async (event) => {
-    event.persist();
     const newVote = {
       voteValue: parseInt(event.currentTarget.value)
     }
     const characterId = params.id
     try {
-      await fetch(`/api/v1/characters/${characterId}/vote`, {
+      await fetch(`/api/v1/characters/${characterId}/votes`, {
         method: 'POST',
         headers: new Headers({
           'Content-Type': 'application/json'
@@ -53,12 +50,12 @@ const CharacterShow = (props) => {
     }
   }
 
-  let voteButtons = <p>Log in to vote!</p>
+  let voteButtons = <Link to="/user-sessions/new"><p>Log in to vote!</p></Link>
   if(props.user){
-    voteButtons = <VoteButtons
-      addVote={addVote}
-      userVote={userVote}
-      />
+      voteButtons = <VoteButtons
+        addVote={addVote}
+        userVote={userVote}
+        />
   }
 
   return (
@@ -66,10 +63,8 @@ const CharacterShow = (props) => {
       <h2 className='characterName'>
         {character.name}
       </h2>
-      <img
+      <img className="characterImage"
         src={character.pictureUrl}
-        width="400"
-        height="500"
       />
       <h4 className='gameTitle'>
         Appearing in: {character.gameTitle}

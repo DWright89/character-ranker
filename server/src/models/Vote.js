@@ -16,28 +16,29 @@ class Vote extends Model {
     }
   }
 
-  static get relationMappings(){
+  static get relationMappings() {
     const Character = require("./Character.js")
     const User = require("./User.js")
 
-    return{
-    characters:{
-      relation: Model.HasOneRelation,
-      modelClass: Character,
-      join: {
-        from: "votes.characterId",
-        to: "character.id"
-      }
-    },
-    users:{
-      relation: Model.HasOneRelation,
-      modelClass: User,
-      join:{
-        from:"votes.userId",
-        to:"user.id"
+    return {
+      characters:{
+        relation: Model.HasOneRelation,
+        modelClass: Character,
+        join: {
+          from: "votes.characterId",
+          to: "character.id"
+        }
+      },
+      users: {
+        relation: Model.HasOneRelation,
+        modelClass: User,
+        join: {
+          from:"votes.userId",
+          to:"user.id"
+        }
       }
     }
-}}
+  }
 }
 
 module.exports = Vote
