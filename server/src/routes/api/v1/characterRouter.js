@@ -22,7 +22,7 @@ characterRouter.get("/:id", async (req, res) => {
   const id = req.params.id
   try {
     const character = await Character.query().findById(id)
-    const serializedCharacter = await CharacterSerializer.getDetails(character, req.user.id)
+    const serializedCharacter = await CharacterSerializer.getDetails(character, req.user)
     return res.status(200).json({ character: serializedCharacter })
   } catch (err) {
     return res.status(500).json({ errors: err })

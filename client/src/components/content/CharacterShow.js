@@ -6,7 +6,6 @@ const CharacterShow = (props) => {
   const [character, setCharacter] = useState({})
   const [totalVotes, setTotalVotes] = useState(0)
   const [userVote, setUserVote] = useState(false)
-  const [clicked, setClicked] = useState(0)
   const params = useParams()
 
   const getCharacter = async () => {
@@ -27,37 +26,38 @@ const CharacterShow = (props) => {
     }
   }
 
-  useEffect(() => {
-    getCharacter()
-  }, [clicked])
-
   const addVote = async (event) => {
     const newVote = {
-      voteValue: parseInt(event.currentTarget.value)
+      value: parseInt(event.currentTarget.value)
     }
     const characterId = params.id
     try {
-      await fetch(`/api/v1/characters/${characterId}/votes`, {
+      const response = await fetch(`/api/v1/characters/${characterId}/votes`, {
         method: 'POST',
         headers: new Headers({
           'Content-Type': 'application/json'
         }),
         body: JSON.stringify(newVote)
       })
-      setClicked((clicked + 1))
+      const returnedVote = await response.json()
+      setUserVote(returnedVote.value)
     } catch (error) {
       console.error("Error in voting button ", error)
     }
   }
-
+  
   let voteButtons = <Link to="/user-sessions/new"><p>Log in to vote!</p></Link>
   if (props.user) {
     voteButtons = <VoteButtons
-      addVote={addVote}
-      userVote={userVote}
+    addVote={addVote}
+    userVote={userVote}
     />
   }
-
+  
+  useEffect(() => {
+    getCharacter()
+  }, [userVote])
+  
   return (
     <div>
       <h2 className='characterName'>

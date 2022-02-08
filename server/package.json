@@ -59,6 +59,7 @@
     "objection-unique": "^1.2.1",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
-    "pg": "^8.5.1"
+    "pg": "^8.5.1",
+    "@fortawesome/fontawesome-free": "5.11.2"
   }
 }
