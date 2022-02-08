@@ -21,6 +21,29 @@
 }
 
 .characterImage {
-  max-height: 500;
-  max-width: 500;
+  max-height: 500px;
+  max-width: 500px;
+}
+
+.reviewList {
+  border: solid 5px $green;
+  margin: 20px;
+  border-radius: 10px;
+}
+
+.reviewTile {
+  border: solid 3px $red;
+  list-style: none;
+  padding: 5px;
+  margin: 10px;
+  border-radius: 10px;
+}
+
+.submit {
+  font-weight: bold;
+  color: #fefefe;
+  background-color: $blue;
+  border-color: $red;
+  border-width: 5px;
+  border-radius: 10px;
 }

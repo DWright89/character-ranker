@@ -1,17 +1,38 @@
 import React, { useState, useEffect } from "react"
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom"
+
 import VoteButtons from "./VoteButtons.js"
+import ReviewForm from "./ReviewForm.js"
+import ReviewList from "./ReviewList.js"
+
 
 const CharacterShow = (props) => {
+  const params = useParams()
   const [character, setCharacter] = useState({})
   const [totalVotes, setTotalVotes] = useState(0)
   const [userVote, setUserVote] = useState(false)
   const [clicked, setClicked] = useState(0)
-  const params = useParams()
+  const [reviews, setReviews] = useState([])
+
+  const getReviews = async () => {
+    try {
+      const characterId = params.id
+      const response = await fetch(`/api/v1/characters/${characterId}/reviews`)
+      if (!response.ok) {
+        const errorMessage = `${response.status}(${response.statusText})`
+        const error = new Error(errorMessage)
+        throw (error)
+      }
+      const body = await response.json()
+      setReviews(body.reviews)
+    } catch (error) {
+      console.error("Error in Fetch", error)
+    }
+  }
 
   const getCharacter = async () => {
-    const characterId = params.id
     try {
+      const characterId = params.id
       const response = await fetch(`/api/v1/characters/${characterId}`)
       if (!response.ok) {
         const errorMessage = `${response.status} (${response.statusText})`
@@ -58,6 +79,15 @@ const CharacterShow = (props) => {
     />
   }
 
+  let reviewForm = <p>You must be signed in to leave a review</p>
+  if (props.user) {
+    reviewForm = <ReviewForm
+      characterId={character.id}
+      userId={props.user.id}
+      getReviews={getReviews}
+    />
+  }
+
   return (
     <div>
       <h2 className='characterName'>
@@ -77,6 +107,8 @@ const CharacterShow = (props) => {
       </p>
       <p>Total Points: {totalVotes}</p>
       {voteButtons}
+      {reviewForm}
+      <ReviewList characterId={params.id} getReviews={getReviews} reviews={reviews} />
     </div>
   )
 }
