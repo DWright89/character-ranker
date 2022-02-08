@@ -1,24 +1,30 @@
 import express from "express"
 
-import { Character } from "../../../models/index.js"
+import characterVotesRouter from "./characterVotesRouter.js"
+import { Character, Vote } from "../../../models/index.js"
 import cleanUserInput from "../../../services/cleanUserInput.js"
+import CharacterSerializer from "../../../serializers/characterSerializer.js"
 
 const characterRouter = new express.Router()
 
-characterRouter.get("/", async (req,res) => {
+characterRouter.get("/", async (req, res) => {
   try {
     const characters = await Character.query()
-    return res.status(200).json({ characters })
-  } catch(err) {
+    const serializedCharacters = await CharacterSerializer.getSummary(characters)
+    return res.status(200).json({ characters: serializedCharacters })
+  } catch (err) {
+    console.log("Error in index: ", err)
     return res.status(500).json({ errors: err })
   }
 })
 
-characterRouter.get("/:id", async (req,res) => {
-  try{
-    const character = await Character.query().findById(req.params.id)
-    return res.status(200).json({ character })
-  } catch(err) {
+characterRouter.get("/:id", async (req, res) => {
+  const id = req.params.id
+  try {
+    const character = await Character.query().findById(id)
+    const serializedCharacter = await CharacterSerializer.getDetails(character, req.user)
+    return res.status(200).json({ character: serializedCharacter })
+  } catch (err) {
     return res.status(500).json({ errors: err })
   }
 })
@@ -37,5 +43,7 @@ characterRouter.post("/", async (req, res) => {
     return res.status(500).json({ errors: error })
   }
 })
+
+characterRouter.use('/:id/votes', characterVotesRouter)
 
 export default characterRouter

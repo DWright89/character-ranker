@@ -35,6 +35,34 @@ class User extends uniqueFunc(Model) {
     };
   }
 
+  static get relationMappings() {
+    const Vote = require("./Vote.js")
+    const Character = require("./Character.js")
+
+    return {
+      votes: {
+        relation: Model.HasManyRelation,
+        modelClass: Vote,
+        join: {
+          from: "users.id",
+          to: "votes.userId"
+        }
+      },
+      characters: {
+        relation: Model.ManyToManyRelation,
+        modelClass: Character,
+        join: {
+          from: "users.id",
+          through: {
+            from: "votes.userId",
+            to: "votes.characterId"
+          },
+          to: "characters.id"
+        }
+      }
+    }
+  }
+
   $formatJson(json) {
     const serializedJson = super.$formatJson(json);
 
