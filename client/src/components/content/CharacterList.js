@@ -43,7 +43,7 @@ const CharacterList = (props) => {
             {charactersArray}
           </ol>
         </div>
-      <div className="cell small-2 medium-3"/>
+        <div className="cell small-2 medium-3"/>
       </div>
     </div>
   )

@@ -20,7 +20,7 @@ const CharacterShow = (props) => {
       }
       const body = await response.json()
       setCharacter(body.character)
-      setTotalVotes(body.character.votes[0].sum)
+      setTotalVotes(body.character.sum)
       setUserVote(body.character.voted)
     } catch (error) {
       console.error("error in character show", error.Message)
@@ -51,11 +51,11 @@ const CharacterShow = (props) => {
   }
 
   let voteButtons = <Link to="/user-sessions/new"><p>Log in to vote!</p></Link>
-  if(props.user){
-      voteButtons = <VoteButtons
-        addVote={addVote}
-        userVote={userVote}
-        />
+  if (props.user) {
+    voteButtons = <VoteButtons
+      addVote={addVote}
+      userVote={userVote}
+    />
   }
 
   return (

@@ -1,12 +1,26 @@
-class voteSerializer {
-  static cleanVotes(vote) {
-    const allowedAttributes = ["userId", "voteValue"]
-    let cleanedVote = {}
-    for (const attribute of allowedAttributes) {
-      cleanedVote[attribute] = vote[attribute]
+class VoteSerializer {
+  static getDetails(voteArray, userId) {
+    let output = {
+      voted: false,
+      sum: 0
     }
-    return cleanedVote
+
+    voteArray.forEach(vote => {
+      output.sum += vote.voteValue
+      if (vote.userId === userId) {
+        output.voted = vote.voteValue
+      }
+    })
+    return output
+  }
+
+  static voteCount(voteArray) {
+    let sum = 0
+    voteArray.forEach(vote => {
+      sum += vote.voteValue
+    })
+    return sum
   }
 }
 
-export default voteSerializer
+export default VoteSerializer

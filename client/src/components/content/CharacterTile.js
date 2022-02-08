@@ -6,7 +6,7 @@ const CharacterTile = props => {
 
   return (
     <Link to={`characters/${id}`}>
-        <li>{props.character.name}</li>
+      <li>{props.character.name} - Total votes: {props.character.sum}</li>
     </Link>
   )
 }
