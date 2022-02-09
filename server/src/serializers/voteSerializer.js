@@ -6,9 +6,9 @@ class VoteSerializer {
     }
 
     voteArray.forEach(vote => {
-      output.sum += vote.voteValue
+      output.sum += vote.value
       if (vote.userId === currentUser?.id) {
-        output.voted = vote.voteValue
+        output.voted = vote.value
       }
     })
     return output
@@ -17,7 +17,7 @@ class VoteSerializer {
   static voteCount(voteArray) {
     let sum = 0
     voteArray.forEach(vote => {
-      sum += vote.voteValue
+      sum += vote.value
     })
     return sum
   }

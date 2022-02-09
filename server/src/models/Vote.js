@@ -7,11 +7,11 @@ class Vote extends Model {
   static get jsonSchema() {
     return {
       type: "object",
-      required: ["userId","characterId","voteValue"],
+      required: ["userId","characterId","value"],
       properties : {
         userId: {type:"bigInteger"},
         characterId: {type: "bigInteger"},
-        voteValue: {type:"integer"}
+        value: {type:"integer"}
       }
     }
   }

@@ -67,7 +67,4 @@ class Character extends Model {
   }
 }
 
-
-
-
 module.exports = Character

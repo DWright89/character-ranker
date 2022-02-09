@@ -1,4 +1,4 @@
-import VoteSerializer from "./VoteSerializer.js"
+import VoteSerializer from "./voteSerializer.js"
 
 class CharacterSerializer {
   static async getDetails(character, currentUser) {

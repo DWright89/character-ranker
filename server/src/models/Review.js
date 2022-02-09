@@ -4,15 +4,15 @@ class Review extends Model {
   static get tableName() {
     return "reviews"
   }
-  
+
   static get jsonSchema() {
     return {
       type: "object",
       required: ["content", "characterId", "userId"],
       properties: {
-        content: {type: "string", minLength: 1, maxLength: 500},
-        characterId: {type: ["integer", "string"]},
-        userId: {type: ["integer", "string"]}
+        content: { type: "string", minLength: 1, maxLength: 500 },
+        characterId: { type: ["integer", "string"] },
+        userId: { type: ["integer", "string"] }
       }
     }
   }
@@ -20,7 +20,7 @@ class Review extends Model {
   static get relationMappings() {
     const Character = require("./Character.js")
     const User = require("./User.js")
-    
+
     return {
       character: {
         relation: Model.BelongsToOneRelation,
@@ -39,7 +39,7 @@ class Review extends Model {
         }
       }
     }
-  }  
+  }
 }
 
 module.exports = Review

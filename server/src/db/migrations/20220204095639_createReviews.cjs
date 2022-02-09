@@ -5,7 +5,7 @@
 /**
  * @param {Knex} knex
  */
- exports.up = async (knex) => {
+exports.up = async (knex) => {
   return knex.schema.createTable("reviews", (table) => {
     table.bigIncrements("id").notNullable()
     table.string("content", [500]).notNullable()

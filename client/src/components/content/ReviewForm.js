@@ -4,16 +4,14 @@ import ErrorList from "../layout/ErrorList.js"
 import translateServerErrors from "../../services/translateServerErrors.js"
 
 const ReviewForm = props => {
-  const [newReview,setNewReview] = useState('')
+  const [newReview, setNewReview] = useState('')
   const [errors, setErrors] = useState([])
 
   const addNewReview = async (event) => {
     event.preventDefault()
-    const { characterId, userId } = props
+    const { characterId } = props
     const reviewBody = {
-      content: newReview,
-      characterId: characterId,
-      userId: userId
+      content: newReview
     }
 
     try {
@@ -23,7 +21,6 @@ const ReviewForm = props => {
           'Content-Type': 'application/json'
         }),
         body: JSON.stringify(reviewBody)
-
       })
       if (!response.ok) {
         if (response.status === 422) {
@@ -33,14 +30,14 @@ const ReviewForm = props => {
         } else {
           const errorMessage = `${response.status} (${response.statusText})`
           const error = new Error(errorMessage)
-          throw(error)
+          throw (error)
         }
       } else {
         setErrors([])
         setNewReview("")
         props.getReviews()
       }
-    } catch(err) {
+    } catch (err) {
       console.error(`Error in fetch: ${err.message}`)
     }
   }
@@ -61,10 +58,10 @@ const ReviewForm = props => {
           className="input yellow"
           id="content"
           maxLength="500"
-          onChange={handleInputChange} 
+          onChange={handleInputChange}
           value={newReview}
         />
-        <input type="submit" className="submit"/>
+        <input type="submit" className="submit" />
       </form>
     </div>
   )

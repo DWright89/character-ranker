@@ -11,7 +11,6 @@ const CharacterShow = (props) => {
   const [character, setCharacter] = useState({})
   const [totalVotes, setTotalVotes] = useState(0)
   const [userVote, setUserVote] = useState(false)
-  const [clicked, setClicked] = useState(0)
   const [reviews, setReviews] = useState([])
 
   const getReviews = async () => {
@@ -48,24 +47,21 @@ const CharacterShow = (props) => {
     }
   }
 
-  useEffect(() => {
-    getCharacter()
-  }, [clicked])
-
   const addVote = async (event) => {
     const newVote = {
-      voteValue: parseInt(event.currentTarget.value)
+      value: parseInt(event.currentTarget.value)
     }
     const characterId = params.id
     try {
-      await fetch(`/api/v1/characters/${characterId}/votes`, {
+      const response = await fetch(`/api/v1/characters/${characterId}/votes`, {
         method: 'POST',
         headers: new Headers({
           'Content-Type': 'application/json'
         }),
         body: JSON.stringify(newVote)
       })
-      setClicked((clicked + 1))
+      const returnedVote = await response.json()
+      setUserVote(returnedVote.value)
     } catch (error) {
       console.error("Error in voting button ", error)
     }
@@ -82,11 +78,15 @@ const CharacterShow = (props) => {
   let reviewForm = <p>You must be signed in to leave a review</p>
   if (props.user) {
     reviewForm = <ReviewForm
-      characterId={character.id}
-      userId={props.user.id}
       getReviews={getReviews}
+      characterId={params.id}
     />
   }
+
+
+  useEffect(() => {
+    getCharacter()
+  }, [userVote])
 
   return (
     <div>
