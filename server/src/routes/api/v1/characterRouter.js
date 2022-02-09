@@ -1,9 +1,11 @@
 import express from "express"
+import { ValidationError } from "objection"
 
 import characterVotesRouter from "./characterVotesRouter.js"
+import characterReviewRouter from "./characterReviewRouter.js"
 import { Character, Vote } from "../../../models/index.js"
 import cleanUserInput from "../../../services/cleanUserInput.js"
-import CharacterSerializer from "../../../serializers/characterSerializer.js"
+import CharacterSerializer from "../../../serializers/CharacterSerializer.js"
 
 const characterRouter = new express.Router()
 
@@ -44,6 +46,7 @@ characterRouter.post("/", async (req, res) => {
   }
 })
 
+characterRouter.use("/:id/reviews", characterReviewRouter)
 characterRouter.use('/:id/votes', characterVotesRouter)
 
 export default characterRouter

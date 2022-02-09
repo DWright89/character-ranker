@@ -22,6 +22,7 @@ class Character extends Model {
   static get relationMappings() {
     const User = require("./User.js")
     const Vote = require("./Vote.js")
+    const Review = require("./Review")
 
     return {
       votes: {
@@ -32,7 +33,15 @@ class Character extends Model {
           to: "votes.characterId"
         }
       },
-      users: {
+      reviews: {
+        relation: Model.HasManyRelation,
+        modelClass: Review,
+        join: {
+          from: "characters.id",
+          to: "reviews.characterId"
+        }
+      },
+      userVotes: {
         relation: Model.ManyToManyRelation,
         modelClass: User,
         join: {
@@ -43,10 +52,19 @@ class Character extends Model {
           },
           to: "users.id"
         }
+      },
+      userReviews: {
+        relation: Model.ManyToManyRelation,
+        modelClass: User,
+        from: "characters.id",
+        through: {
+          from: "reviews.characterId",
+          to: "reviews.userId"
+        },
+        to: "users.id"
       }
     }
   }
 }
-
 
 module.exports = Character
