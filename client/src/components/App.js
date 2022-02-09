@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import { hot } from "react-hot-loader/root";
+import '@fortawesome/fontawesome-free/scss/fontawesome'
 
 import getCurrentUser from "../services/getCurrentUser";
 import "../assets/scss/main.scss";
 
-import '@fortawesome/fontawesome-free/scss/fontawesome'
 import RegistrationForm from "./registration/RegistrationForm";
 import SignInForm from "./authentication/SignInForm";
 import TopBar from "./layout/TopBar";
 import CharacterList from "./content/CharacterList";
+import CharacterRankedList from "./content/CharacterRankedList.js"
 import CharacterShow from "./content/CharacterShow.js";
 import NewCharacterForm from "./content/NewCharacterForm.js";
 import AuthenticatedRoute from "./authentication/AuthenticatedRoute.js";
@@ -36,11 +37,12 @@ const App = (props) => {
       <div className="gridContainer">
         <Switch>
           <Route exact path="/">
-            <h2>Hello from react</h2>
+            <Redirect to="/characters" />
           </Route>
           <Route exact path="/users/new" component={RegistrationForm} />
           <Route exact path="/user-sessions/new" component={SignInForm} />
-          <Route exact path="/characters" component={CharacterList} />
+          <Route exact path="/characters" component={CharacterRankedList} />
+          <Route exact path="/characters/all" component={CharacterList} />
           <AuthenticatedRoute
             exact={true}
             path="/characters/new"

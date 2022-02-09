@@ -12,6 +12,17 @@ const characterRouter = new express.Router()
 characterRouter.get("/", async (req, res) => {
   try {
     const characters = await Character.query()
+    const serializedCharacters = await CharacterSerializer.getRanked(characters)
+    return res.status(200).json({ characters: serializedCharacters })
+  } catch (err) {
+    console.log("Error in index: ", err)
+    return res.status(500).json({ errors: err })
+  }
+})
+
+characterRouter.get("/all", async (req, res) => {
+  try {
+    const characters = await Character.query()
     const serializedCharacters = await CharacterSerializer.getSummary(characters)
     return res.status(200).json({ characters: serializedCharacters })
   } catch (err) {
