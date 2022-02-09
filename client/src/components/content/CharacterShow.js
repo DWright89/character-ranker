@@ -90,26 +90,30 @@ const CharacterShow = (props) => {
   }, [userVote])
 
   return (
-    <div>
-      <h2 className='characterName'>
-        {character.name}
-      </h2>
-      <img className="characterImage"
-        src={character.pictureUrl}
-      />
-      <h4 className='gameTitle'>
-        Appearing in: {character.gameTitle}
-      </h4>
-      <h3 className='gameSeries'>
-        From the bestselling series {character.gameSeries}
-      </h3>
-      <p className='arguments'>
-        Description: {character.description}
-      </p>
-      <p>Total Points: {totalVotes}</p>
-      {voteButtons}
-      {reviewForm}
-      <ReviewList characterId={params.id} getReviews={getReviews} reviews={reviews} />
+    <div className="grid-x grid-margin-x">
+      <div className="cell small-2 medium-3" />
+      <div className="cell small-8 medium-6">
+        <h2 className='characterName'>
+          {character.name}
+        </h2>
+        <img className="characterImage"
+          src={character.pictureUrl}
+        />
+        <h4 className='gameTitle'>
+          Appearing in: {character.gameTitle}
+        </h4>
+        <h3 className='gameSeries'>
+          From the bestselling series {character.gameSeries}
+        </h3>
+        <p className='arguments'>
+          Description: {character.description}
+        </p>
+        <p>Total Points: {totalVotes}</p>
+        {voteButtons}
+        {reviewForm}
+        <ReviewList characterId={params.id} getReviews={getReviews} reviews={reviews} />
+        <div className="cell small-2 medium-3" />
+      </div>
     </div>
   )
 }

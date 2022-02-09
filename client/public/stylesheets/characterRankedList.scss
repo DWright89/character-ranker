@@ -1,0 +1,14 @@
+@import "./colors.scss";
+
+.loser {
+  max-width: 248px;
+  border: solid 3px $red;
+  padding: 3px;
+}
+
+.shame {
+  background-color: $dark-gray;
+  max-width: 300px;
+  padding: 20px;
+  margin: 0 auto;
+}

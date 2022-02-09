@@ -19,7 +19,7 @@ class CharacterSerializer {
   }
 
   static async getSummary(characterArray) {
-    const allowedAttributes = ["id", "name"]
+    const allowedAttributes = ["id", "name", "pictureUrl"]
     const serializedCharacters = []
     for (const character of characterArray) {
       const serializedCharacter = {}
@@ -30,7 +30,18 @@ class CharacterSerializer {
       serializedCharacter.sum = VoteSerializer.voteCount(character.votes)
       serializedCharacters.push(serializedCharacter)
     }
-    return serializedCharacters
+    const sortedCharacters = serializedCharacters.sort((a, b) => {
+      return b.sum - a.sum
+    })
+
+    return sortedCharacters
+  }
+
+  static async getRanked(characterArray) {
+    const allCharacters = await this.getSummary(characterArray)
+    const topFiveCharacters = allCharacters.slice(0, 5)
+    const bottomCharacter = allCharacters.pop()
+    return { topFiveCharacters, bottomCharacter }
   }
 }
 

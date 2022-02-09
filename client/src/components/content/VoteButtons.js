@@ -1,5 +1,8 @@
 import React from "react"
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowUp, faArrowDown } from "@fortawesome/free-solid-svg-icons"
+
 const VoteButton = (props => {
 
   let up = ""
@@ -12,8 +15,12 @@ const VoteButton = (props => {
 
   return (
     <div>
-      <button className={`fas fa-arrow-up fa-5x ${up}`} name="upvote" value="1" onClick={props.addVote}></button>
-      <button className={`fas fa-arrow-down fa-5x ${down}`} name="downvote" value="-1" onClick={props.addVote}></button>
+      <button name="upvote" value="1" onClick={props.addVote}>
+        <FontAwesomeIcon className={`fas fa-5x ${up}`} icon={faArrowUp} />
+      </button>
+      <button name="downvote" value="-1" onClick={props.addVote}>
+        <FontAwesomeIcon className={`fas fa-arrow-down fa-5x ${down}`} icon={faArrowDown} />
+      </button>
     </div>
   )
 })
