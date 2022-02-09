@@ -34,8 +34,11 @@ const ReviewForm = props => {
         }
       } else {
         setErrors([])
+        const body = await response.json()
+        const newReview = {content: body.review.content, id: body.review.id}
+        props.setReviews(props.reviews.concat(newReview))
         setNewReview("")
-        props.getReviews()
+        // props.getReviews()
       }
     } catch (err) {
       console.error(`Error in fetch: ${err.message}`)

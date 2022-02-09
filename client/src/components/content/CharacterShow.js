@@ -78,7 +78,8 @@ const CharacterShow = (props) => {
   let reviewForm = <p>You must be signed in to leave a review</p>
   if (props.user) {
     reviewForm = <ReviewForm
-      getReviews={getReviews}
+      reviews={reviews}
+      setReviews={setReviews}
       characterId={params.id}
     />
   }
