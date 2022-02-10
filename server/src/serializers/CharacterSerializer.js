@@ -43,6 +43,21 @@ class CharacterSerializer {
     const bottomCharacter = allCharacters.pop()
     return { topFiveCharacters, bottomCharacter }
   }
+  static validateCharacter(cleanedForm) {
+    const regex = /[a-zA-Z0-9.,?!: ]*/
+    const { name, gameTitle, gameSeries, description } = cleanedForm
+    const checkedName = name.match(regex)
+    const checkedTitle = gameTitle.match(regex)
+    const checkedSeries = gameSeries.match(regex)
+    const checkedDescription = description.match(regex)
+    console.log("Checked name, ", checkedName)
+
+    if (checkedName[0] === name && checkedTitle[0] === gameTitle && checkedSeries[0] === gameSeries && checkedDescription[0] === description) {
+      return true
+    } else {
+      return false
+    }
+  }
 }
 
 export default CharacterSerializer

@@ -13,6 +13,7 @@ const NewCharacterForm = props => {
   })
 
   const [errors, setErrors] = useState([])
+  const [localErrors, setLocalErrors] = useState([])
 
   const handleInputChange = event => {
     setNewCharacter({
@@ -54,11 +55,8 @@ const NewCharacterForm = props => {
       else {
         const body = await response.json()
         const destinationId = body.character.id
-        console.log("body", body)
-        console.log("destination id", destinationId)
         location.href = `/characters/${destinationId}`
       }
-
     } catch (error) {
       console.error("The form broke", error)
     }
@@ -66,27 +64,25 @@ const NewCharacterForm = props => {
 
   const handleSubmit = event => {
     event.preventDefault()
-    console.log("submit worked")
-    if (!newCharacter.pictureUrl.endsWith(".jpg") && (!newCharacter.pictureUrl.endsWith(".png"))) {
-      setErrors(["Requires valid URL"])
-    } else {
-      submitForm(newCharacter)
-      console.log(errors)
-      if (errors === []) {
-        clearForm()
-      }
+    if (!newCharacter.pictureUrl.includes(".jpg") && !newCharacter.pictureUrl.includes(".png") || !newCharacter.pictureUrl) {
+      newCharacter.pictureUrl = ""
+      return setLocalErrors(["Please enter a valid URL"])
+    }
+    submitForm(newCharacter)
+    if (errors === []) {
+      clearForm()
     }
   }
-   
+
   return (
     <div className='grid-x grid-margin-x centered'>
       <div className='cell small-4 medium-3' />
       <div className='cell small-4 medium-6'>
-        <div className='formErrors'>
-          <ErrorList errors={errors} />
-        </div>
         <div className='newForm'>
           <h1 className='centered title'>Add a new character</h1>
+          <div className='formErrors'>
+            {localErrors}
+          </div>
           <form onSubmit={handleSubmit}>
             <label htmlFor='name'>Name: *</label>
             <input
@@ -96,7 +92,7 @@ const NewCharacterForm = props => {
               id='name'
               onChange={handleInputChange}
               value={newCharacter.name}
-              />
+            />
             <label htmlFor='gameTitle'>Game Title:</label>
             <input
               className='input blue'
@@ -115,7 +111,7 @@ const NewCharacterForm = props => {
               onChange={handleInputChange}
               value={newCharacter.gameSeries}
             />
-            <label htmlFor='pictureUrl'>Add a link to a photo:</label>
+            <label htmlFor='pictureUrl'>Add a link to a photo: *</label>
             <input
               className='input red'
               type='text'
@@ -136,7 +132,7 @@ const NewCharacterForm = props => {
           </form>
         </div>
       </div>
-    <div className='cell small-4 medium-3' />
+      <div className='cell small-4 medium-3' />
     </div>
   )
 }

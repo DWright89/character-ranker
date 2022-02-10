@@ -3,6 +3,7 @@ import { ValidationError } from "objection"
 
 import { Review } from "../../../models/index.js"
 import cleanUserInput from "../../../services/cleanUserInput.js"
+import ReviewSerializer from "../../../serializers/ReviewSerializer.js"
 
 const characterReviewRouter = new express.Router({ mergeParams: true })
 
@@ -18,9 +19,14 @@ characterReviewRouter.get("/", async (req, res) => {
 
 characterReviewRouter.post("/", async (req, res) => {
   const content = cleanUserInput(req.body.content)
+  const validatedContent = ReviewSerializer.validateReview(content)
+  if (!validatedContent) {
+    return res.status(423).json({ errors: "Bad review detected" })
+  }
   const userId = req.user.id
   const characterId = req.params.id
   const review = { userId, characterId, content }
+
   try {
     const newReview = await Review.query().insertAndFetch(review)
     return res.status(201).json({ review: newReview })
