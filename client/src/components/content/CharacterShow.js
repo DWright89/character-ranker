@@ -4,6 +4,8 @@ import { useParams, Link } from "react-router-dom"
 import VoteButtons from "./VoteButtons.js"
 import ReviewForm from "./ReviewForm.js"
 import ReviewList from "./ReviewList.js"
+import ErrorList from "../layout/ErrorList.js"
+import translateServerErrors from "../../services/translateServerErrors.js"
 
 
 const CharacterShow = (props) => {
@@ -12,6 +14,7 @@ const CharacterShow = (props) => {
   const [totalVotes, setTotalVotes] = useState(0)
   const [userVote, setUserVote] = useState(false)
   const [reviews, setReviews] = useState([])
+  const [errors, setErrors] = useState(null)
 
   const getReviews = async () => {
     try {
@@ -60,6 +63,11 @@ const CharacterShow = (props) => {
         }),
         body: JSON.stringify(newVote)
       })
+        if (response.status === 423) {
+          const body = await response.json()
+          console.log("Body in 423, ", body)
+          return setErrors(body.error)
+        }
       const returnedVote = await response.json()
       setUserVote(returnedVote.value)
     } catch (error) {
@@ -111,6 +119,9 @@ const CharacterShow = (props) => {
         <p>Total Points: {totalVotes}</p>
         {voteButtons}
         {reviewForm}
+        <div className='formErrors'>
+          {errors}
+        </div>
         <ReviewList characterId={params.id} getReviews={getReviews} reviews={reviews} />
         <div className="cell small-2 medium-3" />
       </div>
