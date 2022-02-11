@@ -1,6 +1,6 @@
 import express from "express"
 
-import VoteSerializer from "../../../serializers/VoteSerializer.js"
+import VoteSerializer from "../../../serializers/voteSerializer.js"
 
 const characterVotesRouter = new express.Router({ mergeParams: true })
 
