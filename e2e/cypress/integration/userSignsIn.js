@@ -22,7 +22,7 @@ describe("As a user visiting the sign in page", () => {
 
       cy.root().submit();
 
-      cy.url().should("eq", `${Cypress.config().baseUrl}/`);
+      cy.url().should("eq", `${Cypress.config().baseUrl}/characters`);
     });
     cy.contains("Sign Out");
   });
