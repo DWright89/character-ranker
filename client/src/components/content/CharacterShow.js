@@ -5,13 +5,13 @@ import VoteButtons from "./VoteButtons.js"
 import ReviewForm from "./ReviewForm.js"
 import ReviewList from "./ReviewList.js"
 
-
 const CharacterShow = (props) => {
   const params = useParams()
   const [character, setCharacter] = useState({})
   const [totalVotes, setTotalVotes] = useState(0)
   const [userVote, setUserVote] = useState(false)
   const [reviews, setReviews] = useState([])
+  const [errors, setErrors] = useState(null)
 
   const getReviews = async () => {
     try {
@@ -60,6 +60,10 @@ const CharacterShow = (props) => {
         }),
         body: JSON.stringify(newVote)
       })
+      if (response.status === 423) {
+        const body = await response.json()
+        return setErrors(body.error)
+      }
       const returnedVote = await response.json()
       setUserVote(returnedVote.value)
     } catch (error) {
@@ -84,6 +88,15 @@ const CharacterShow = (props) => {
     />
   }
 
+  let appearingIn = ""
+  if (character.gameTitle) {
+    appearingIn = <p>Appearing in: {character.gameTitle}</p>
+  }
+
+  let description = ""
+  if (character.description) {
+    description = `This character is in a class of its own for the following reasons: ${character.description}`
+  }
 
   useEffect(() => {
     getCharacter()
@@ -100,17 +113,20 @@ const CharacterShow = (props) => {
           src={character.pictureUrl}
         />
         <h4 className='gameTitle'>
-          Appearing in: {character.gameTitle}
+          {appearingIn}
         </h4>
         <h3 className='gameSeries'>
           From the bestselling series {character.gameSeries}
         </h3>
         <p className='arguments'>
-          Description: {character.description}
+          {description}
         </p>
         <p>Total Points: {totalVotes}</p>
         {voteButtons}
         {reviewForm}
+        <div className='formErrors'>
+          {errors}
+        </div>
         <ReviewList characterId={params.id} getReviews={getReviews} reviews={reviews} />
         <div className="cell small-2 medium-3" />
       </div>

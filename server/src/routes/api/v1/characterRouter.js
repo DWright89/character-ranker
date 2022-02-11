@@ -15,7 +15,6 @@ characterRouter.get("/", async (req, res) => {
     const serializedCharacters = await CharacterSerializer.getRanked(characters)
     return res.status(200).json({ characters: serializedCharacters })
   } catch (err) {
-    console.log("Error in index: ", err)
     return res.status(500).json({ errors: err })
   }
 })
@@ -26,7 +25,6 @@ characterRouter.get("/all", async (req, res) => {
     const serializedCharacters = await CharacterSerializer.getSummary(characters)
     return res.status(200).json({ characters: serializedCharacters })
   } catch (err) {
-    console.log("Error in index: ", err)
     return res.status(500).json({ errors: err })
   }
 })
@@ -44,16 +42,21 @@ characterRouter.get("/:id", async (req, res) => {
 
 characterRouter.post("/", async (req, res) => {
   const { body } = req
-  const cleanForm = cleanUserInput(body);
-  try {
-    const newCharacter = await Character.query().insertAndFetch(cleanForm)
-    return res.status(201).json({ character: newCharacter });
-  } catch (error) {
-    if (error instanceof ValidationError) {
-      return res.status(422).json({ errors: error.data })
+  const validatedCharacter = CharacterSerializer.validateCharacter(body)
+  if (!validatedCharacter) {
+    return res.status(423).json({ errors: "Bad character input detected." })
+  } else {
+    const cleanForm = cleanUserInput(body);
+    try {
+      const newCharacter = await Character.query().insertAndFetch(cleanForm)
+      return res.status(201).json({ character: newCharacter });
+    } catch (error) {
+      if (error instanceof ValidationError) {
+        return res.status(422).json({ errors: error.data })
+      }
+      console.error("Error in the character post router", error)
+      return res.status(500).json({ errors: error })
     }
-    console.error("Error in the character post router", error)
-    return res.status(500).json({ errors: error })
   }
 })
 

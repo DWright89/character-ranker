@@ -1,32 +1,25 @@
 import express from "express"
-import objection from "objection"
-const { ValidationError } = objection
 
-import { Vote } from "../../../models/index.js"
+import VoteSerializer from "../../../serializers/VoteSerializer.js"
 
 const characterVotesRouter = new express.Router({ mergeParams: true })
 
 characterVotesRouter.post("/", async (req, res) => {
-  const { value } = req.body
-  const userId = req.user.id
-  const characterId = req.params.id
-  const vote = { characterId, userId, value }
-  const findUserVote = await Vote.query().where("userId", "=", userId).where("characterId", "=", characterId)
-  const userVote = findUserVote[0]
+  const value = VoteSerializer.checkVote(req.body.value)
   try {
-    if (userVote) {
-      if (userVote.value === value) {
-        const deletedVote = await Vote.query().deleteById(userVote.id)
-        return res.status(202).json({ deletedVote })
-      } else {
-        const updatedVote = await Vote.query().patchAndFetchById(userVote.id, { value })
-        return res.status(201).json({ updatedVote })
-      }
+    const vote = await VoteSerializer.handleUserVote(value, req.user.id, req.params.id)
+    if (typeof (vote) === 'string') {
+      const error = vote
+      throw (error)
+    } else {
+      return res.status(200).json({ vote })
     }
-    const newVote = await Vote.query().insertAndFetch(vote)
-    return res.status(200).json({ newVote })
   } catch (error) {
-    return res.status(500).json({ errors: error })
+    if (!parseInt(error)) {
+      return res.status(423).json({ error })
+    } else {
+      return res.status(500).json({ errors: error })
+    }
   }
 })
 

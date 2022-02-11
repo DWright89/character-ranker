@@ -11,9 +11,9 @@ const CharacterShameTile = props => {
       <Link to={`/characters/${id}`}>
         <p>{name} - Total votes: {sum}</p>
         <div className="shame centered">
-          <img className="loser" src={pictureUrl}/>
+          <img className="loser" src={pictureUrl} />
           <br />
-          <img src="https://i.imgur.com/WCzRK16.jpg"/>
+          <img src="https://i.imgur.com/WCzRK16.jpg" />
         </div>
       </Link>
     </div>
