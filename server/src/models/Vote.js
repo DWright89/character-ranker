@@ -7,11 +7,11 @@ class Vote extends Model {
   static get jsonSchema() {
     return {
       type: "object",
-      required: ["userId","characterId","value"],
-      properties : {
-        userId: {type:"bigInteger"},
-        characterId: {type: "bigInteger"},
-        value: {type:"integer"}
+      required: ["userId", "characterId", "value"],
+      properties: {
+        userId: { type: "bigInteger" },
+        characterId: { type: "bigInteger" },
+        value: { type: "integer" }
       }
     }
   }
@@ -21,7 +21,7 @@ class Vote extends Model {
     const User = require("./User.js")
 
     return {
-      characters:{
+      characters: {
         relation: Model.HasOneRelation,
         modelClass: Character,
         join: {
@@ -33,8 +33,8 @@ class Vote extends Model {
         relation: Model.HasOneRelation,
         modelClass: User,
         join: {
-          from:"votes.userId",
-          to:"user.id"
+          from: "votes.userId",
+          to: "user.id"
         }
       }
     }

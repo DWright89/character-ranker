@@ -43,7 +43,7 @@ class CharacterSerializer {
     const bottomCharacter = allCharacters.pop()
     return { topFiveCharacters, bottomCharacter }
   }
-  
+
   static validateCharacter(cleanedForm) {
     const regex = /[a-zA-Z0-9.,?!: ]*/
     const { name, gameTitle, gameSeries, description } = cleanedForm

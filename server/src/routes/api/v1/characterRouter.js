@@ -45,7 +45,7 @@ characterRouter.post("/", async (req, res) => {
   const validatedCharacter = CharacterSerializer.validateCharacter(body)
   if (!validatedCharacter) {
     return res.status(423).json({ errors: "Bad character input detected." })
-  } else{
+  } else {
     const cleanForm = cleanUserInput(body);
     try {
       const newCharacter = await Character.query().insertAndFetch(cleanForm)
