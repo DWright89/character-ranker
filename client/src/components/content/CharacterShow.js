@@ -4,9 +4,6 @@ import { useParams, Link } from "react-router-dom"
 import VoteButtons from "./VoteButtons.js"
 import ReviewForm from "./ReviewForm.js"
 import ReviewList from "./ReviewList.js"
-import ErrorList from "../layout/ErrorList.js"
-import translateServerErrors from "../../services/translateServerErrors.js"
-
 
 const CharacterShow = (props) => {
   const params = useParams()

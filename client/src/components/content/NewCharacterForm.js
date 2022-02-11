@@ -47,15 +47,15 @@ const NewCharacterForm = props => {
           const newErrors = translateServerErrors(body.errors)
           return setErrors(newErrors)
         } else if (response.status === 423) {
-            const body = await response.json()
-            return setLocalErrors(body.errors)
+          const body = await response.json()
+          return setLocalErrors(body.errors)
         } else {
           const errorMessage = `${response.status} (${response.statusText})`
           const error = new Error(errorMessage)
           throw (error)
         }
       }
-      else {      
+      else {
         const body = await response.json()
         const destinationId = body.character.id
         location.href = `/characters/${destinationId}`

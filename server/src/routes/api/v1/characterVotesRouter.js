@@ -1,8 +1,5 @@
 import express from "express"
-import objection from "objection"
-const { ValidationError } = objection
 
-import { Vote } from "../../../models/index.js"
 import VoteSerializer from "../../../serializers/VoteSerializer.js"
 
 const characterVotesRouter = new express.Router({ mergeParams: true })
@@ -11,11 +8,11 @@ characterVotesRouter.post("/", async (req, res) => {
   const value = VoteSerializer.checkVote(req.body.value)
   try {
     const vote = await VoteSerializer.handleUserVote(value, req.user.id, req.params.id)
-    if (typeof(vote)==='string') {
+    if (typeof (vote) === 'string') {
       const error = vote
       throw (error)
     } else {
-    return res.status(200).json({ vote })
+      return res.status(200).json({ vote })
     }
   } catch (error) {
     if (!parseInt(error)) {
@@ -24,6 +21,6 @@ characterVotesRouter.post("/", async (req, res) => {
       return res.status(500).json({ errors: error })
     }
   }
-}) 
+})
 
 export default characterVotesRouter

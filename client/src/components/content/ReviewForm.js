@@ -39,7 +39,6 @@ const ReviewForm = props => {
           throw (error)
         }
       } else {
-
         setErrors([])
         const body = await response.json()
         const newReview = { content: body.review.content, id: body.review.id }
@@ -60,7 +59,6 @@ const ReviewForm = props => {
     <div className="reviewForm">
       <div className="formErrors">
         <ErrorList errors={errors} />
-
         {localErrors}
       </div>
       <form onSubmit={addNewReview}>

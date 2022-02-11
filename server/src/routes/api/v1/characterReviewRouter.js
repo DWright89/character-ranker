@@ -26,7 +26,6 @@ characterReviewRouter.post("/", async (req, res) => {
   const userId = req.user.id
   const characterId = req.params.id
   const review = { userId, characterId, content }
-
   try {
     const newReview = await Review.query().insertAndFetch(review)
     return res.status(201).json({ review: newReview })
